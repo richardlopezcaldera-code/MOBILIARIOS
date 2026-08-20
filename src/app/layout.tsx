@@ -4,6 +4,7 @@ import { GeistMono } from "geist/font/mono";
 
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
+import { CartProvider } from "@/lib/cart-context";
 import { STORE } from "@/lib/store";
 import "./globals.css";
 
@@ -30,9 +31,11 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <CartProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );

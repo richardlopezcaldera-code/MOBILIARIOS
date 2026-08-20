@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Check, MessageCircle, X } from "lucide-react";
 
+import { AddToCart } from "@/components/site/add-to-cart";
 import { ProductGrid } from "@/components/site/product-row";
 import { STORE, formatCLP, whatsappLink } from "@/lib/store";
 import {
@@ -21,7 +22,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const product = getProduct(slug);
   if (!product) return { title: "Producto no encontrado" };
   return {
-    title: `${product.name} | ${STORE.name}`,
+    // Solo el nombre: el template del layout ya agrega "| MobiliarioTech".
+    title: product.name,
     description: product.excerpt || undefined,
     openGraph: { images: product.images.slice(0, 1) },
   };
@@ -128,19 +130,33 @@ export default async function ProductPage({ params }: Props) {
             {available ? "Disponible" : "Sin stock"}
           </p>
 
-          <div className="mt-6 flex flex-wrap gap-3">
+          <AddToCart
+            className="mt-6"
+            withQuantity
+            disabled={!available}
+            line={{
+              id: product.id,
+              slug: product.slug,
+              name: product.name,
+              price: product.price,
+              image: product.images[0],
+              sku: product.sku,
+            }}
+          />
+
+          <div className="mt-4 flex flex-wrap gap-3">
             <a
               href={whatsappLink(
                 `Hola, quiero cotizar: ${product.name}${product.sku ? ` (SKU ${product.sku})` : ""}`,
               )}
-              className="inline-flex h-11 items-center gap-2 rounded-lg bg-primary px-6 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+              className="inline-flex h-10 items-center gap-2 rounded-lg border border-border bg-background px-5 text-sm font-medium hover:bg-muted"
             >
               <MessageCircle className="size-4" aria-hidden />
-              Cotizar por WhatsApp
+              Consultar por WhatsApp
             </a>
             <a
               href={`mailto:${STORE.email}?subject=${encodeURIComponent(`Consulta: ${product.name}`)}`}
-              className="inline-flex h-11 items-center rounded-lg border border-border bg-background px-6 text-sm font-medium hover:bg-muted"
+              className="inline-flex h-10 items-center rounded-lg border border-border bg-background px-5 text-sm font-medium hover:bg-muted"
             >
               Consultar por correo
             </a>

@@ -5,7 +5,7 @@ import { STORE, whatsappLink } from "@/lib/store";
 import { rootCategories } from "@/lib/catalog";
 
 export const metadata: Metadata = {
-  title: "Cotización por volumen | MobiliarioTech",
+  title: "Cotización por volumen",
   description:
     "Cotiza mobiliario por volumen para oficinas, colegios, restaurantes e industria.",
 };

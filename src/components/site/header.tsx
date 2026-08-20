@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Menu, Search, ShoppingCart, Truck } from "lucide-react";
+import { Menu, Search, Truck } from "lucide-react";
 
+import { CartBadge } from "@/components/site/cart-badge";
 import { STORE } from "@/lib/store";
 import { childrenOf, rootCategories } from "@/lib/catalog";
 
@@ -52,13 +53,7 @@ export function Header() {
           >
             <Search className="size-5" />
           </Link>
-          <Link
-            href="/carro"
-            aria-label="Carro de compras"
-            className="inline-flex size-9 items-center justify-center rounded-lg hover:bg-muted"
-          >
-            <ShoppingCart className="size-5" />
-          </Link>
+          <CartBadge />
         </div>
       </div>
 

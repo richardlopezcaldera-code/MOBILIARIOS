@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const category = getCategory(slug.join("/"));
   if (!category) return { title: "Categoría no encontrada" };
   return {
-    title: `${category.name} | MobiliarioTech`,
+    title: category.name,
     description: `${category.count} productos en ${category.name}.`,
   };
 }

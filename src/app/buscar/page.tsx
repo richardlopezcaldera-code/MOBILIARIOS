@@ -5,7 +5,7 @@ import { ProductGrid } from "@/components/site/product-row";
 import { products } from "@/lib/catalog";
 
 export const metadata: Metadata = {
-  title: "Buscar | MobiliarioTech",
+  title: "Buscar",
 };
 
 type Props = { searchParams: Promise<{ q?: string }> };
