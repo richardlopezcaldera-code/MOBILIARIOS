@@ -1,0 +1,275 @@
+[
+{
+"id": 2720357,
+"name": "Sillas",
+"slug": "sillas",
+"parentId": null,
+"count": 325
+},
+{
+"id": 2720358,
+"name": "Mesas",
+"slug": "mesas",
+"parentId": null,
+"count": 190
+},
+{
+"id": 2720359,
+"name": "Escritorios",
+"slug": "escritorios",
+"parentId": null,
+"count": 110
+},
+{
+"id": 2720360,
+"name": "Estantes y Repisas",
+"slug": "estantes-y-repisas",
+"parentId": null,
+"count": 85
+},
+{
+"id": 2720361,
+"name": "Closets",
+"slug": "closets",
+"parentId": null,
+"count": 8
+},
+{
+"id": 2720362,
+"name": "Sofás y Living",
+"slug": "sofas-y-living",
+"parentId": null,
+"count": 21
+},
+{
+"id": 2720363,
+"name": "Camillas y Mobiliario Clínico",
+"slug": "camillas-y-mobiliario-clinico",
+"parentId": null,
+"count": 15
+},
+{
+"id": 2720364,
+"name": "Pizarras y Murales",
+"slug": "pizarras-y-murales",
+"parentId": null,
+"count": 33
+},
+{
+"id": 2720365,
+"name": "Ping Pong y Juegos",
+"slug": "ping-pong-y-juegos",
+"parentId": null,
+"count": 15
+},
+{
+"id": 2720366,
+"name": "Parrillas y Exterior",
+"slug": "parrillas-y-exterior",
+"parentId": null,
+"count": 19
+},
+{
+"id": 2720367,
+"name": "Escalas y Pisos Altos",
+"slug": "escalas-y-pisos-altos",
+"parentId": null,
+"count": 23
+},
+{
+"id": 2720368,
+"name": "Percheros",
+"slug": "percheros",
+"parentId": null,
+"count": 2
+},
+{
+"id": 2720369,
+"name": "Lavaplatos y Cocina",
+"slug": "lavaplatos-y-cocina",
+"parentId": null,
+"count": 8
+},
+{
+"id": 2720370,
+"name": "Comedor y Muebles Varios",
+"slug": "comedor-y-muebles-varios",
+"parentId": null,
+"count": 21
+},
+{
+"id": 2720371,
+"name": "Otros y Varios",
+"slug": "otros-varios",
+"parentId": null,
+"count": 19
+},
+{
+"id": 2721401,
+"name": "Lockers",
+"slug": "lockers",
+"parentId": null,
+"count": 40
+},
+{
+"id": 2721407,
+"name": "Archivadores",
+"slug": "archivadores",
+"parentId": null,
+"count": 26
+},
+{
+"id": 2721408,
+"name": "Banquetas",
+"slug": "banquetas",
+"parentId": null,
+"count": 13
+},
+{
+"id": 2721823,
+"name": "Sillas Ejecutivas y Ergonómicas",
+"slug": "sillas/sillas-ejecutivas-y-ergonomicas",
+"parentId": 2720357,
+"count": 54
+},
+{
+"id": 2721824,
+"name": "Sillas Operativas",
+"slug": "sillas/sillas-operativas",
+"parentId": 2720357,
+"count": 31
+},
+{
+"id": 2721825,
+"name": "Sillas de Visita y Apilables",
+"slug": "sillas/sillas-de-visita-y-apilables",
+"parentId": 2720357,
+"count": 27
+},
+{
+"id": 2721826,
+"name": "Sillas Escolares y Auditorio",
+"slug": "sillas/sillas-escolares-y-auditorio",
+"parentId": 2720357,
+"count": 21
+},
+{
+"id": 2721827,
+"name": "Sillas Altas y Cajero",
+"slug": "sillas/sillas-altas-y-cajero",
+"parentId": 2720357,
+"count": 17
+},
+{
+"id": 2721828,
+"name": "Sillas Gamer",
+"slug": "sillas/sillas-gamer",
+"parentId": 2720357,
+"count": 5
+},
+{
+"id": 2721829,
+"name": "Escritorios Rectos",
+"slug": "escritorios/escritorios-rectos",
+"parentId": 2720359,
+"count": 55
+},
+{
+"id": 2721830,
+"name": "Escritorios en L",
+"slug": "escritorios/escritorios-en-l",
+"parentId": 2720359,
+"count": 18
+},
+{
+"id": 2721831,
+"name": "Estaciones de Trabajo",
+"slug": "escritorios/estaciones-de-trabajo",
+"parentId": 2720359,
+"count": 9
+},
+{
+"id": 2721832,
+"name": "Cajoneras y Extensiones",
+"slug": "escritorios/cajoneras-y-extensiones",
+"parentId": 2720359,
+"count": 25
+},
+{
+"id": 2721833,
+"name": "Escritorios Especiales",
+"slug": "escritorios/escritorios-especiales",
+"parentId": 2720359,
+"count": 2
+},
+{
+"id": 2721834,
+"name": "Estantes",
+"slug": "estantes-y-repisas/estantes",
+"parentId": 2720360,
+"count": 39
+},
+{
+"id": 2721835,
+"name": "Repisas",
+"slug": "estantes-y-repisas/repisas",
+"parentId": 2720360,
+"count": 11
+},
+{
+"id": 2721836,
+"name": "Gabinetes y Archivadores",
+"slug": "estantes-y-repisas/gabinetes-y-archivadores",
+"parentId": 2720360,
+"count": 35
+},
+{
+"id": 2721837,
+"name": "Bandejas y Accesorios",
+"slug": "estantes-y-repisas/bandejas-y-accesorios",
+"parentId": 2720360,
+"count": 0
+},
+{
+"id": 2721838,
+"name": "Mesas de Reunión",
+"slug": "mesas/mesas-de-reunion",
+"parentId": 2720358,
+"count": 38
+},
+{
+"id": 2721839,
+"name": "Mesas Comedor y Redondas",
+"slug": "mesas/mesas-comedor-y-redondas",
+"parentId": 2720358,
+"count": 16
+},
+{
+"id": 2721840,
+"name": "Mesas Plegables",
+"slug": "mesas/mesas-plegables",
+"parentId": 2720358,
+"count": 15
+},
+{
+"id": 2721841,
+"name": "Mesas Casino",
+"slug": "mesas/mesas-casino",
+"parentId": 2720358,
+"count": 4
+},
+{
+"id": 2721842,
+"name": "Mesas Auxiliares y Especiales",
+"slug": "mesas/mesas-auxiliares-y-especiales",
+"parentId": 2720358,
+"count": 7
+},
+{
+"id": 2728823,
+"name": "Ofertas del Día",
+"slug": "ofertas-del-dia",
+"parentId": null,
+"count": 3
+}
+]

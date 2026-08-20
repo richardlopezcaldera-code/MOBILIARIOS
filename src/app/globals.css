@@ -24,6 +24,7 @@
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
+  --color-offer: var(--offer);
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
@@ -72,6 +73,11 @@
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
+  /* --- Marca MobiliarioTech --- */
+  --primary: oklch(0.52 0.15 253);
+  --primary-foreground: oklch(0.99 0 0);
+  --ring: oklch(0.52 0.15 253);
+  --offer: oklch(0.62 0.19 35);
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
@@ -115,6 +121,11 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  /* --- Marca MobiliarioTech (oscuro) --- */
+  --primary: oklch(0.66 0.15 253);
+  --primary-foreground: oklch(0.17 0.02 253);
+  --ring: oklch(0.66 0.15 253);
+  --offer: oklch(0.68 0.18 35);
 }
 
 @layer base {
