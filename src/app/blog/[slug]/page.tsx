@@ -4,6 +4,10 @@ import { notFound } from "next/navigation";
 import { ArrowRight, Clock, MessageCircle } from "lucide-react";
 
 import { ProductGrid } from "@/components/site/product-row";
+import {
+  ArticleSchema,
+  BreadcrumbSchema,
+} from "@/components/site/structured-data";
 import { articleBySlug, articles } from "@/data/blog";
 import { findCategory, getCatalog, productsInCategory } from "@/lib/data";
 import { whatsappLink } from "@/lib/store";
@@ -18,7 +22,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const article = articleBySlug(slug);
   if (!article) return { title: "Artículo no encontrado" };
-  return { title: article.title, description: article.summary };
+  return {
+    title: article.title,
+    description: article.summary,
+    alternates: { canonical: `/blog/${article.slug}` },
+  };
 }
 
 /** Convierte **negrita** en <strong>. No se admite más marcado que ese. */
@@ -55,6 +63,18 @@ export default async function ArticlePage({ params }: Props) {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
+      <ArticleSchema
+        title={article.title}
+        summary={article.summary}
+        slug={article.slug}
+      />
+      <BreadcrumbSchema
+        trail={[
+          { name: "Inicio", path: "/" },
+          { name: "Recomendaciones", path: "/blog" },
+          { name: article.title, path: `/blog/${article.slug}` },
+        ]}
+      />
       <nav aria-label="Ruta" className="mb-6 text-sm text-muted-foreground">
         <Link href="/" className="hover:text-foreground">
           Inicio

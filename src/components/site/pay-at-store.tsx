@@ -3,11 +3,7 @@
 import { useState } from "react";
 import { CreditCard, ExternalLink } from "lucide-react";
 
-import {
-  JUMPSELLER_CART_URL,
-  jumpsellerAddUrl,
-  STORE,
-} from "@/lib/store";
+import { JUMPSELLER_CART_URL, jumpsellerAddUrl } from "@/lib/store";
 import type { CartLine } from "@/lib/cart-context";
 
 const STEP_MS = 1800;
@@ -77,8 +73,9 @@ export function PayAtStore({
       </button>
 
       <p className="mt-2 text-xs text-muted-foreground">
-        El pago se realiza en {STORE.url.replace("https://", "")}, con los medios
-        de pago que ya tienes configurados.
+        Se abre nuestra pasarela de pago segura en una ventana aparte. Los datos
+        de tu tarjeta los procesa el banco directamente: nunca pasan por este
+        sitio.
       </p>
 
       {blocked && (

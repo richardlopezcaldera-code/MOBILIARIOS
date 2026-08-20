@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Mail, MessageCircle } from "lucide-react";
 
 import { PayAtStore } from "@/components/site/pay-at-store";
+import { PaymentMethods } from "@/components/site/payment-methods";
 import { STORE, formatCLP, grossTotal, iva, whatsappLink } from "@/lib/store";
 import { useCart } from "@/lib/cart-context";
 
@@ -307,6 +308,8 @@ export default function CheckoutPage() {
           </p>
 
           <div className="mt-5">
+            <p className="mb-2 text-xs font-medium">Pagas con</p>
+            <PaymentMethods size="compact" className="mb-3" />
             <PayAtStore lines={lines} />
           </div>
 

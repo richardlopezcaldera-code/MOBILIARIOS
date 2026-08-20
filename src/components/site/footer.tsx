@@ -3,30 +3,8 @@ import { Mail, MapPin, MessageCircle } from "lucide-react";
 
 import { STORE, whatsappLink } from "@/lib/store";
 import { getCatalog, rootCategories } from "@/lib/data";
+import { PaymentMethods } from "@/components/site/payment-methods";
 
-/**
- * Medios de pago que la tienda ya tiene habilitados en Jumpseller.
- * Los logos se sirven desde el CDN de Jumpseller, los mismos que muestra
- * mobiliariostechchile.cl. No agregar aquí un medio que no esté activo.
- */
-const PAYMENTS = [
-  {
-    name: "Mercado Pago (crédito, débito, prepago, transferencia)",
-    src: "https://assets.jumpseller.com/public/payment-logos/mercadopago.svg",
-  },
-  {
-    name: "Flow",
-    src: "https://assets.jumpseller.com/public/payment-logos/flow.svg",
-  },
-  {
-    name: "Transferencia Bancaria",
-    src: "https://assets.jumpseller.com/public/payment-logos/manual.svg",
-  },
-  {
-    name: "Oneclick",
-    src: "https://assets.jumpseller.com/public/payment-logos/oneclick.svg",
-  },
-];
 
 export async function Footer() {
   const { categories } = await getCatalog();
@@ -122,24 +100,7 @@ export async function Footer() {
       <div className="border-t border-border">
         <div className="mx-auto max-w-7xl px-4 py-8">
           <h2 className="text-sm font-semibold">Medios de pago</h2>
-          <ul className="mt-4 flex flex-wrap items-center gap-3">
-            {PAYMENTS.map((payment) => (
-              <li
-                key={payment.name}
-                className="flex h-16 w-28 items-center justify-center rounded-lg border border-border bg-background p-3"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={payment.src}
-                  alt={payment.name}
-                  width={96}
-                  height={40}
-                  loading="lazy"
-                  className="max-h-10 w-auto object-contain"
-                />
-              </li>
-            ))}
-          </ul>
+          <PaymentMethods className="mt-4" />
           <p className="mt-3 text-xs">
             El pago se procesa en {STORE.url.replace("https://", "")}.
           </p>

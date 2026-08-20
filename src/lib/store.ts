@@ -21,6 +21,9 @@ export const STORE = {
   },
 } as const;
 
+/** Dominio público del sitio nuevo. Base para canónicas, sitemap y JSON-LD. */
+export const SITE_URL = "https://www.mobiliariostech.cl";
+
 export const NAV_HIGHLIGHTS = [
   { label: "Ofertas del Día", slug: "ofertas-del-dia" },
   { label: "Escritorios", slug: "escritorios" },

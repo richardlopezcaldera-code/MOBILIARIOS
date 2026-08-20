@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ProductGrid } from "@/components/site/product-row";
+import { BreadcrumbSchema } from "@/components/site/structured-data";
 import {
   childrenOf,
   findCategory,
@@ -24,7 +25,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!category) return { title: "Categoría no encontrada" };
   return {
     title: category.name,
-    description: `${category.count} productos en ${category.name}.`,
+    description: `${category.count} productos en ${category.name}. Precios y stock actualizados.`,
+    alternates: { canonical: `/categoria/${category.slug}` },
   };
 }
 
@@ -46,6 +48,15 @@ export default async function CategoryPage({ params, searchParams }: Props) {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
+      <BreadcrumbSchema
+        trail={[
+          { name: "Inicio", path: "/" },
+          ...(parent
+            ? [{ name: parent.name, path: `/categoria/${parent.slug}` }]
+            : []),
+          { name: category.name, path: `/categoria/${category.slug}` },
+        ]}
+      />
       <nav aria-label="Ruta" className="mb-4 text-sm text-muted-foreground">
         <Link href="/" className="hover:text-foreground">
           Inicio

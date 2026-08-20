@@ -6,6 +6,10 @@ import { Check, MessageCircle, X } from "lucide-react";
 
 import { AddToCart } from "@/components/site/add-to-cart";
 import { ProductGrid } from "@/components/site/product-row";
+import {
+  BreadcrumbSchema,
+  ProductSchema,
+} from "@/components/site/structured-data";
 import { STORE, formatCLP, whatsappLink } from "@/lib/store";
 import { discountPercent, inStock } from "@/lib/catalog";
 import { findProduct, getCatalog, relatedProducts } from "@/lib/data";
@@ -21,7 +25,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // Solo el nombre: el template del layout ya agrega "| MobiliarioTech".
     title: product.name,
     description: product.excerpt || undefined,
-    openGraph: { images: product.images.slice(0, 1) },
+    alternates: { canonical: `/producto/${product.slug}` },
+    openGraph: {
+      title: product.name,
+      description: product.excerpt || undefined,
+      images: product.images.slice(0, 1),
+      type: "website",
+    },
   };
 }
 
@@ -40,6 +50,21 @@ export default async function ProductPage({ params }: Props) {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
+      <ProductSchema product={product} category={categories[0]} />
+      <BreadcrumbSchema
+        trail={[
+          { name: "Inicio", path: "/" },
+          ...(categories[0]
+            ? [
+                {
+                  name: categories[0].name,
+                  path: `/categoria/${categories[0].slug}`,
+                },
+              ]
+            : []),
+          { name: product.name, path: `/producto/${product.slug}` },
+        ]}
+      />
       <nav aria-label="Ruta" className="mb-6 text-sm text-muted-foreground">
         <Link href="/" className="hover:text-foreground">
           Inicio

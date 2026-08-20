@@ -8,13 +8,16 @@ import { WeatherEffect } from "@/components/site/weather-effect";
 import { WhatsappButton } from "@/components/site/whatsapp-button";
 import { getWeather } from "@/lib/weather";
 import { CartProvider } from "@/lib/cart-context";
-import { STORE } from "@/lib/store";
+import { OrganizationSchema } from "@/components/site/structured-data";
+import { SITE_URL, STORE } from "@/lib/store";
 import "./globals.css";
 
 const geistSans = GeistSans;
 const geistMono = GeistMono;
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  alternates: { canonical: "/" },
   title: {
     default: `${STORE.name} — Mobiliario para oficina, hogar e industria`,
     template: `%s | ${STORE.name}`,
@@ -35,6 +38,7 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <OrganizationSchema />
         <CartProvider>
           {weather && <WeatherEffect condition={weather.condition} />}
           <Header />
