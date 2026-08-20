@@ -4,7 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { Mail, MessageCircle } from "lucide-react";
 
-import { STORE, formatCLP, whatsappLink } from "@/lib/store";
+import { PayAtStore } from "@/components/site/pay-at-store";
+import { STORE, formatCLP, grossTotal, iva, whatsappLink } from "@/lib/store";
 import { useCart } from "@/lib/cart-context";
 
 interface Form {
@@ -109,7 +110,9 @@ export default function CheckoutPage() {
       "",
       items,
       "",
-      `Total productos: ${formatCLP(total)}`,
+      `Neto: ${formatCLP(total)}`,
+      `IVA (19%): ${formatCLP(iva(total))}`,
+      `Total: ${formatCLP(grossTotal(total))} (sin despacho)`,
       "",
       `Nombre: ${form.nombre}`,
       `Teléfono: ${form.telefono}`,
@@ -285,16 +288,37 @@ export default function CheckoutPage() {
               </li>
             ))}
           </ul>
-          <div className="mt-4 flex justify-between border-t border-border pt-3 text-base font-semibold">
-            <span>Total ({count})</span>
-            <span className="tabular-nums">{formatCLP(total)}</span>
-          </div>
+          <dl className="mt-4 space-y-2 border-t border-border pt-3 text-sm">
+            <div className="flex justify-between">
+              <dt className="text-muted-foreground">Neto ({count})</dt>
+              <dd className="tabular-nums">{formatCLP(total)}</dd>
+            </div>
+            <div className="flex justify-between">
+              <dt className="text-muted-foreground">IVA (19%)</dt>
+              <dd className="tabular-nums">{formatCLP(iva(total))}</dd>
+            </div>
+            <div className="flex justify-between border-t border-border pt-2 text-base font-semibold">
+              <dt>Total</dt>
+              <dd className="tabular-nums">{formatCLP(grossTotal(total))}</dd>
+            </div>
+          </dl>
           <p className="mt-3 text-xs text-muted-foreground">
-            El despacho se cotiza aparte. El pago se coordina al confirmar el
-            pedido.
+            El despacho se calcula en el checkout según la dirección.
           </p>
 
-          <div className="mt-5 space-y-3">
+          <div className="mt-5">
+            <PayAtStore lines={lines} />
+          </div>
+
+          <div className="my-5 flex items-center gap-3">
+            <span className="h-px flex-1 bg-border" />
+            <span className="text-xs text-muted-foreground">
+              o envíanos el pedido
+            </span>
+            <span className="h-px flex-1 bg-border" />
+          </div>
+
+          <div className="space-y-3">
             <SendAction
               disabled={missing}
               href={missing ? "" : whatsappLink(buildOrder())}

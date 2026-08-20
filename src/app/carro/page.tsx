@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Minus, Plus, ShoppingCart, Trash2 } from "lucide-react";
 
-import { formatCLP } from "@/lib/store";
+import { formatCLP, grossTotal, iva } from "@/lib/store";
 import { useCart } from "@/lib/cart-context";
 
 export default function CartPage() {
@@ -144,16 +144,20 @@ export default function CartPage() {
           <h2 className="text-sm font-semibold">Resumen</h2>
           <dl className="mt-4 space-y-2 text-sm">
             <div className="flex justify-between">
-              <dt className="text-muted-foreground">Productos</dt>
-              <dd className="tabular-nums">{count}</dd>
+              <dt className="text-muted-foreground">Productos ({count})</dt>
+              <dd className="tabular-nums">{formatCLP(total)}</dd>
+            </div>
+            <div className="flex justify-between">
+              <dt className="text-muted-foreground">IVA (19%)</dt>
+              <dd className="tabular-nums">{formatCLP(iva(total))}</dd>
             </div>
             <div className="flex justify-between border-t border-border pt-3 text-base font-semibold">
               <dt>Total</dt>
-              <dd className="tabular-nums">{formatCLP(total)}</dd>
+              <dd className="tabular-nums">{formatCLP(grossTotal(total))}</dd>
             </div>
           </dl>
           <p className="mt-3 text-xs text-muted-foreground">
-            El despacho se cotiza aparte según la dirección de entrega.
+            El despacho se calcula en el checkout según la dirección de entrega.
           </p>
           <Link
             href="/checkout"
