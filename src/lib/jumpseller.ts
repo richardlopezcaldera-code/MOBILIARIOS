@@ -35,6 +35,9 @@ async function api<T>(path: string): Promise<T | null> {
     const response = await fetch(`${BASE}/${path}`, {
       headers: { Authorization: authHeader() },
       next: { revalidate: REVALIDATE_SECONDS, tags: [CATALOG_TAG] },
+      // Si la API se pone lenta, se cae al snapshot en vez de dejar al
+      // visitante esperando indefinidamente.
+      signal: AbortSignal.timeout(8000),
     });
     if (!response.ok) {
       console.error(`[jumpseller] ${path} respondió ${response.status}`);

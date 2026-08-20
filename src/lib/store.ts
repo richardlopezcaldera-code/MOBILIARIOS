@@ -16,6 +16,8 @@ export const STORE = {
     region: "Región Metropolitana",
     postal: "8360884",
     country: "Chile",
+    latitude: -33.4694,
+    longitude: -70.6345,
   },
 } as const;
 

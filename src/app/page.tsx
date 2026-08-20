@@ -1,8 +1,9 @@
 import Link from "next/link";
 
 import { Hero } from "@/components/site/hero";
-import { ProductRow } from "@/components/site/product-row";
+import { RotatingRow } from "@/components/site/rotating-row";
 import { TrustBar } from "@/components/site/trust-bar";
+import { WeatherBanner } from "@/components/site/weather-banner";
 import { WholesaleCta } from "@/components/site/wholesale-cta";
 import {
   discountedProducts,
@@ -12,28 +13,33 @@ import {
   productsInCategory,
   rootCategories,
 } from "@/lib/data";
+import { getWeather } from "@/lib/weather";
 
 const SHOWCASE = ["escritorios", "sillas", "mesas", "lockers", "estantes-y-repisas"];
 
 export default async function Home() {
-  const catalog = await getCatalog();
+  const [catalog, weather] = await Promise.all([getCatalog(), getWeather()]);
   const roots = rootCategories(catalog.categories);
 
-  const offers = discountedProducts(catalog.products, 14);
-  const featured = featuredProducts(catalog.products, 14);
+  const offers = discountedProducts(catalog.products, 40);
+  const featured = featuredProducts(catalog.products, 40);
 
   const rows = SHOWCASE.map((slug) => {
     const category = findCategory(catalog.categories, slug);
     if (!category) return null;
-    return { category, items: productsInCategory(catalog, category).slice(0, 14) };
+    return { category, items: productsInCategory(catalog, category).slice(0, 60) };
   }).filter((row) => row !== null);
 
   return (
     <>
       <Hero total={catalog.products.length} categories={roots} />
 
+      {weather && (
+        <WeatherBanner weather={weather} categories={catalog.categories} />
+      )}
+
       {offers.length > 0 && (
-        <ProductRow
+        <RotatingRow
           title="Ofertas vigentes"
           subtitle="Productos con precio rebajado en el catálogo"
           products={offers}
@@ -44,7 +50,7 @@ export default async function Home() {
       <TrustBar />
 
       {featured.length > 0 && (
-        <ProductRow
+        <RotatingRow
           title="Destacados"
           subtitle="Seleccionados desde tu catálogo"
           products={featured}
@@ -53,7 +59,7 @@ export default async function Home() {
       )}
 
       {rows.map(({ category, items }) => (
-        <ProductRow
+        <RotatingRow
           key={category.id}
           title={category.name}
           subtitle={`${category.count} productos disponibles`}

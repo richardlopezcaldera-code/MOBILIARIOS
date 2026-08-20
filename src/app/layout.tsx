@@ -4,6 +4,9 @@ import { GeistMono } from "geist/font/mono";
 
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
+import { WeatherEffect } from "@/components/site/weather-effect";
+import { WhatsappButton } from "@/components/site/whatsapp-button";
+import { getWeather } from "@/lib/weather";
 import { CartProvider } from "@/lib/cart-context";
 import { STORE } from "@/lib/store";
 import "./globals.css";
@@ -20,11 +23,12 @@ export const metadata: Metadata = {
     "Escritorios, sillas ergonómicas, mesas de reunión, lockers y estantería. Mobiliario para oficina, hogar, gastronomía e industria en Chile.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const weather = await getWeather();
   return (
     <html
       lang="es-CL"
@@ -32,9 +36,11 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <CartProvider>
+          {weather && <WeatherEffect condition={weather.condition} />}
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
+          <WhatsappButton />
         </CartProvider>
       </body>
     </html>

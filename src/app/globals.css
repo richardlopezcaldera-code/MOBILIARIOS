@@ -143,3 +143,93 @@
     @apply font-sans;
   }
 }
+/* --- Efecto de clima -------------------------------------------------- */
+/* Sutil a propósito: en una tienda el producto manda, no el adorno. */
+
+@keyframes mt-fall {
+  from {
+    transform: translateY(-10vh);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  to {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}
+
+@keyframes mt-drift {
+  from {
+    transform: translate(0, -10vh);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  to {
+    transform: translate(3rem, 110vh);
+    opacity: 0;
+  }
+}
+
+.mt-drop {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 3.5rem;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    color-mix(in oklch, var(--primary) 45%, transparent)
+  );
+  animation: mt-fall linear infinite;
+}
+
+.mt-snow {
+  position: absolute;
+  top: 0;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 9999px;
+  background: color-mix(in oklch, var(--foreground) 25%, transparent);
+  animation: mt-drift linear infinite;
+}
+
+/* --- Aparición escalonada de productos -------------------------------- */
+
+@keyframes mt-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.mt-rise {
+  animation: mt-rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  /* Se anima al entrar en pantalla, no al cargar la página entera. */
+  animation-timeline: view();
+  animation-range: entry 0% cover 22%;
+}
+
+/* Quien pide menos movimiento no recibe ninguno. */
+@media (prefers-reduced-motion: reduce) {
+  .mt-drop,
+  .mt-snow,
+  .mt-rise {
+    animation: none !important;
+  }
+  .mt-drop,
+  .mt-snow {
+    display: none;
+  }
+  .mt-rise {
+    opacity: 1;
+    transform: none;
+  }
+}

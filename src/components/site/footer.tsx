@@ -101,6 +101,11 @@ export async function Footer() {
               </Link>
             </li>
             <li>
+              <Link href="/blog" className="hover:underline">
+                Recomendaciones
+              </Link>
+            </li>
+            <li>
               <Link href="/buscar" className="hover:underline">
                 Buscar en el catálogo
               </Link>

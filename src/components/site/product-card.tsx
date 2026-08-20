@@ -20,7 +20,7 @@ export function ProductCard({
   return (
     <div
       className={cn(
-        "group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-shadow hover:shadow-lg",
+        "group mt-rise flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl motion-reduce:hover:translate-y-0",
         className,
       )}
     >
@@ -36,7 +36,7 @@ export function ProductCard({
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
             className={cn(
-              "object-contain p-3 transition-opacity duration-300",
+              "object-contain p-3 transition-[opacity,transform] duration-500 ease-out group-hover:scale-105 motion-reduce:group-hover:scale-100",
               secondary && "group-hover:opacity-0",
             )}
           />
@@ -47,11 +47,11 @@ export function ProductCard({
               aria-hidden
               fill
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
-              className="object-contain p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              className="object-contain p-3 opacity-0 transition-[opacity,transform] duration-500 ease-out group-hover:scale-105 group-hover:opacity-100 motion-reduce:group-hover:scale-100"
             />
           )}
           {discount !== null && (
-            <span className="absolute top-2 left-2 rounded-md bg-[var(--offer)] px-2 py-1 text-xs font-semibold text-white">
+            <span className="absolute top-2 left-2 rounded-md bg-[var(--offer)] px-2 py-1 text-xs font-semibold text-white transition-transform duration-300 group-hover:scale-110 motion-reduce:group-hover:scale-100">
               -{discount}%
             </span>
           )}
