@@ -147,6 +147,31 @@ export async function fetchProducts(): Promise<Product[] | null> {
   return all;
 }
 
+/**
+ * Token de webhooks de la tienda, para verificar la firma HMAC que Jumpseller
+ * envía en cada llamada. Se cachea una hora: cambia solo si el dueño lo
+ * regenera a mano.
+ */
+export async function fetchHooksToken(): Promise<string | null> {
+  if (!isLive) return null;
+  try {
+    const response = await fetch(`${BASE}/store/info.json`, {
+      headers: { Authorization: authHeader() },
+      next: { revalidate: 3600 },
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!response.ok) {
+      console.error(`[jumpseller] store/info respondió ${response.status}`);
+      return null;
+    }
+    const data = (await response.json()) as { store?: { hooks_token?: string } };
+    return data.store?.hooks_token ?? null;
+  } catch (error) {
+    console.error("[jumpseller] falló store/info", error);
+    return null;
+  }
+}
+
 export async function fetchCategories(): Promise<Category[] | null> {
   const raw = await api<{ category: ApiCategory }[]>("categories.json");
   if (raw === null) return null;
