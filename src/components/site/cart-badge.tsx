@@ -18,7 +18,7 @@ export function CartBadge() {
     >
       <ShoppingCart className="size-5" />
       {ready && count > 0 && (
-        <span className="absolute -top-0.5 -right-0.5 inline-flex min-w-5 items-center justify-center rounded-full bg-[var(--offer)] px-1 text-[11px] font-semibold text-white tabular-nums">
+        <span className="absolute -top-0.5 -right-0.5 inline-flex min-w-5 items-center justify-center rounded-full bg-[var(--offer)] px-1 text-[11px] font-semibold text-[var(--offer-foreground)] tabular-nums">
           {count > 99 ? "99+" : count}
         </span>
       )}

@@ -26,6 +26,8 @@
   --color-ring: var(--ring);
   --color-offer: var(--offer);
   --color-royal: var(--royal);
+  --color-gold: var(--gold);
+  --color-offer-foreground: var(--offer-foreground);
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
@@ -74,13 +76,19 @@
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  /* --- Marca MobiliarioTech --- */
-  --primary: oklch(0.52 0.15 253);
+  /* --- Marca MobiliarioTech ---
+     Colores extraidos de la tienda en produccion, no inventados:
+       navy  #14375d  12.1:1 sobre blanco  -> texto, botones, footer
+       oro   #c19a6b   4.7:1 con texto navy -> superficie de acento
+       ambar #f0a630   5.9:1 con texto navy -> ofertas y descuentos
+     Regla: oro y ambar NUNCA llevan texto blanco (2.6:1, ilegible). */
+  --primary: oklch(0.333 0.078 252.9);
   --primary-foreground: oklch(0.99 0 0);
-  --ring: oklch(0.52 0.15 253);
-  --offer: oklch(0.62 0.19 35);
-  /* Azul rey #1B3FBF — 8:1 de contraste sobre el fondo del footer */
-  --royal: oklch(0.437 0.203 265.6);
+  --ring: oklch(0.333 0.078 252.9);
+  --gold: oklch(0.711 0.078 71.2);
+  --offer: oklch(0.779 0.151 73.5);
+  --offer-foreground: oklch(0.333 0.078 252.9);
+  --royal: oklch(0.333 0.078 252.9);
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
@@ -128,8 +136,10 @@
   --primary: oklch(0.66 0.15 253);
   --primary-foreground: oklch(0.17 0.02 253);
   --ring: oklch(0.66 0.15 253);
-  --offer: oklch(0.68 0.18 35);
-  --royal: oklch(0.72 0.15 265.6);
+  --gold: oklch(0.75 0.08 71.2);
+  --offer: oklch(0.82 0.14 73.5);
+  --offer-foreground: oklch(0.24 0.05 252.9);
+  --royal: oklch(0.80 0.06 252.9);
 }
 
 @layer base {
@@ -231,5 +241,55 @@
   .mt-rise {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* --- Fondo decorativo ---------------------------------------------------
+   Trama de puntos en el navy de la marca, al 4% de opacidad, más dos
+   destellos suaves en navy y oro. Es deliberadamente tenue: en una tienda
+   la foto del producto tiene que ganar siempre.
+   Va en el <body> con z-index negativo, así nunca tapa ni bloquea nada. */
+
+body {
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(
+      42rem 42rem at 88% -8%,
+      color-mix(in oklch, var(--gold) 16%, transparent),
+      transparent 62%
+    ),
+    radial-gradient(
+      38rem 38rem at -6% 4%,
+      color-mix(in oklch, var(--primary) 12%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      circle at center,
+      color-mix(in oklch, var(--primary) 22%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: auto, auto, 22px 22px;
+  opacity: 0.55;
+}
+
+.dark body::before {
+  opacity: 0.35;
+}
+
+/* Las secciones con fondo propio se apoyan sobre la trama sin taparla. */
+@layer base {
+  body {
+    background-color: transparent;
+  }
+  html {
+    background-color: var(--background);
   }
 }

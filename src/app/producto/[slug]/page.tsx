@@ -132,7 +132,7 @@ export default async function ProductPage({ params }: Props) {
                 <span className="text-lg text-muted-foreground line-through">
                   {formatCLP(product.compareAt)}
                 </span>
-                <span className="rounded-md bg-[var(--offer)] px-2 py-1 text-xs font-semibold text-white">
+                <span className="rounded-md bg-[var(--offer)] px-2 py-1 text-xs font-semibold text-[var(--offer-foreground)]">
                   -{discount}%
                 </span>
               </>

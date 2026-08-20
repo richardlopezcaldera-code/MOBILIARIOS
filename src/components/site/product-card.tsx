@@ -51,7 +51,7 @@ export function ProductCard({
             />
           )}
           {discount !== null && (
-            <span className="absolute top-2 left-2 rounded-md bg-[var(--offer)] px-2 py-1 text-xs font-semibold text-white transition-transform duration-300 group-hover:scale-110 motion-reduce:group-hover:scale-100">
+            <span className="absolute top-2 left-2 rounded-md bg-[var(--offer)] px-2 py-1 text-xs font-semibold text-[var(--offer-foreground)] transition-transform duration-300 group-hover:scale-110 motion-reduce:group-hover:scale-100">
               -{discount}%
             </span>
           )}
