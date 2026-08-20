@@ -1,81 +1,89 @@
-# MobiliarioTech — tienda Next.js
+# MobiliarioTech — estado del proyecto
 
-Construida sobre la plantilla `ai-website-cloner-template`, usando `relampago.shop`
-solo como **referencia de estructura y UX**. Ningún texto, imagen ni activo de
-ese sitio fue copiado.
+Última actualización: 20 de agosto de 2026
 
-## Datos
+Sitio Next.js construido sobre la plantilla `ai-website-cloner-template`, usando
+`relampago.shop` solo como referencia de estructura y UX. Ningún texto, imagen
+ni activo de ese sitio fue copiado.
 
-Catálogo leído de tu tienda Jumpseller `mobiliariotech`, **solo lectura**. Nada
-se escribió en Jumpseller en ningún momento.
+## Cómo levantarlo
 
-- `src/data/products.json` — 962 productos con imagen
-- `src/data/categories.json` — 39 categorías con jerarquía
+```powershell
+cd "$HOME\Desktop\MOBILIARIOS"
+npm install
+npm run dev
+```
 
-Snapshot del 20 de agosto de 2026. No se sincroniza solo.
+Requiere **Node 24 o superior**.
 
 ## Rutas
 
 | Ruta | Qué hace |
 |---|---|
-| `/` | Portada: hero, ofertas, destacados, filas por categoría |
-| `/categoria/[...slug]` | Categoría y subcategorías, 48 productos por página |
-| `/producto/[slug]` | Ficha con galería, precio, stock, agregar al carro |
-| `/buscar?q=` | Búsqueda por nombre, SKU y descripción |
-| `/carro` | Carro con cantidades, eliminar, neto + IVA + total |
+| `/` | Portada: hero, banner de clima, filas rotativas, categorías |
+| `/categoria/[...slug]` | Categoría y subcategorías, 48 por página |
+| `/producto/[slug]` | Ficha con galería, stock y agregar al carro |
+| `/buscar?q=` | Búsqueda por nombre, SKU y descripción, sin tildes |
+| `/carro` | Cantidades, eliminar, neto + IVA + total |
 | `/checkout` | Datos del cliente, pago en Jumpseller o envío del pedido |
-| `/admin` | Panel de productos en modo borrador |
+| `/blog` y `/blog/[slug]` | 5 guías ordenadas según el clima del día |
+| `/admin` | Panel de productos en modo borrador (`noindex`) |
 | `/mayoristas` | Cotización por volumen |
+| `/api/revalidate` | Webhook para refrescar el catálogo |
 
-## IVA — importante
+## Datos: dos modos
 
-Los precios del catálogo son **netos**. Verificado contra tu tienda: "Banca
-Blanca Plaza 1,8 m" son $280.800 netos + $53.352 de IVA = $334.152. El carro y
-el checkout muestran los tres valores para que el cliente vea lo que va a pagar.
+**Sin credenciales** (como está ahora): usa el snapshot de `src/data/`, 962
+productos y 39 categorías exportados el 20 de agosto. Funciona, pero congelado.
 
-## Pago
+**Con credenciales** en `.env.local` (ver `.env.example`): lee el catálogo en
+vivo desde la API de Jumpseller, con caché de 10 minutos y webhook para
+refrescar al instante. Si la API falla, vuelve solo al snapshot — probado
+apagando la API, el sitio siguió respondiendo 200.
 
-El pago ocurre en **tu checkout de Jumpseller**, con la pasarela que ya tienes
-contratada. Las pasarelas no se pueden extraer de Jumpseller: el contrato está
-atado a la plataforma.
+Nada se escribe nunca en Jumpseller.
 
-Formato verificado en tu tienda:
+## Decisiones tomadas
 
-- `/cart/add/<id>?qty=N` agrega un producto — la cantidad va en `qty`,
-  **no** en `quantity` (ese parámetro se ignora).
-- Un producto por URL. El formato `id:cantidad,id:cantidad` **no** funciona:
-  toma solo el primer id y agrega 1 unidad.
-- Los productos se acumulan en la misma sesión de carro.
+**IVA.** Los precios del catálogo son netos. Verificado contra la tienda:
+"Banca Blanca Plaza 1,8 m" son $280.800 netos + $53.352 de IVA. El carro y el
+checkout muestran los tres valores.
 
-Por eso `PayAtStore` abre una ventana y la navega producto por producto, con
-1,8 s entre cada uno, y termina en el carro de la tienda. Si el navegador
-bloquea la ventana emergente, muestra los enlaces numerados como alternativa.
+**Pago.** Ocurre en el checkout de Jumpseller, con la pasarela ya contratada.
+Formato verificado: `/cart/add/<id>?qty=N`, un producto por URL — el parámetro
+`quantity` se ignora y el formato `id:cantidad,id:cantidad` no funciona.
 
-El avance va por tiempo porque no se puede leer el estado de una ventana de
-otro dominio. Con carros muy grandes conviene probarlo.
+**Despacho.** El sitio no promete cobertura, plazos ni costos. Decidido: **no
+incluir** el envío gratis por Starken de la tienda actual.
 
-## Panel de administración
+**Colores.** Azul del header y azul rey `#1B3FBF` en el footer. El royal blue
+clásico `#4169E1` quedaba en 4,6:1 de contraste, al filo de lo legible.
+Pendiente unificar cuando haya logo o colores oficiales de marca.
 
-`/admin` funciona en **modo borrador**: los cambios se guardan solo en el
-navegador y se exportan a CSV. Nada se escribe en Jumpseller. Puedes editar
-nombre, precio neto y stock, y crear productos nuevos.
+**Medios de pago.** Los logos salen del CDN de Jumpseller, los mismos que usa
+la tienda. `oneclick.svg` se ve como el logo de Webpay. No agregar aquí un
+medio que no esté activo en Jumpseller.
 
-## Verificado
+**Animaciones.** Filas que rotan de a 10 cada 15 s, pausables. Efecto de lluvia
+o nieve solo cuando el clima real lo amerita, sutil y desactivable. Todo
+respeta `prefers-reduced-motion`.
 
-- `npm run build`, `npm run lint`, `npm run typecheck` ✅
-- **24 pruebas end-to-end en Chromium**: carro (agregar, cantidades,
-  persistencia, sincronía entre pestañas), cálculo de IVA, validación del
-  checkout, armado del pedido, panel de borradores y títulos de página.
-- Correcciones encontradas al probar: el sufijo duplicado en los títulos, un
-  enlace sin `href` que no era accesible cuando faltaban datos, y la hidratación
-  del carro que se quedaba en "Cargando" con el carro vacío.
+**Timeouts.** El clima se consulta desde el layout: sin límite de tiempo, una
+API lenta congelaba todas las páginas. Clima 3 s, Jumpseller 8 s.
 
-## Pendiente de tu decisión
+## Verificación
 
-1. **Colores de marca.** El azul es elección mía; no pude descargar tu logo
-   desde el entorno de trabajo. Pásame el logo o los colores y los ajusto.
-2. **Despacho.** El sitio no hace ninguna promesa de cobertura, plazos ni
-   costos, porque no están confirmados. **Decidido: no incluir el envío gratis
-   por Starken** que aparece en la tienda actual. Si más adelante quieres
-   publicar condiciones de despacho, hay que definirlas explícitamente.
-3. **Publicar.** El proyecto no está subido a GitHub todavía.
+`npm run build`, `lint` y `typecheck` en verde.
+
+**34 pruebas end-to-end en Chromium** (`test-carro.mjs` en el entorno de
+trabajo): carro, IVA, checkout, panel de borradores, rotación, blog, WhatsApp
+y títulos.
+
+El modo headless se probó contra un servidor que imita la API de Jumpseller:
+autenticación, paginado, descarte de productos sin imagen y caída de la API.
+
+## Pendiente
+
+1. Logo y colores oficiales para unificar los dos azules.
+2. Subir a GitHub: el repo `MOBILIARIOS` sigue vacío.
+3. El plan de dominios y redirecciones está en `PLAN-DOMINIOS.md`.
