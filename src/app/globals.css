@@ -25,6 +25,7 @@
   --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
   --color-offer: var(--offer);
+  --color-royal: var(--royal);
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
@@ -78,6 +79,8 @@
   --primary-foreground: oklch(0.99 0 0);
   --ring: oklch(0.52 0.15 253);
   --offer: oklch(0.62 0.19 35);
+  /* Azul rey #1B3FBF — 8:1 de contraste sobre el fondo del footer */
+  --royal: oklch(0.437 0.203 265.6);
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
@@ -126,6 +129,7 @@
   --primary-foreground: oklch(0.17 0.02 253);
   --ring: oklch(0.66 0.15 253);
   --offer: oklch(0.68 0.18 35);
+  --royal: oklch(0.72 0.15 265.6);
 }
 
 @layer base {
