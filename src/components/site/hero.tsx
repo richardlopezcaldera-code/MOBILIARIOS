@@ -1,10 +1,17 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-import { rootCategories } from "@/lib/catalog";
 
-export function Hero({ total }: { total: number }) {
-  const shortcuts = rootCategories().slice(0, 6);
+import type { Category } from "@/lib/catalog";
+
+export function Hero({
+  total,
+  categories,
+}: {
+  total: number;
+  categories: Category[];
+}) {
+  const shortcuts = categories.slice(0, 6);
 
   return (
     <section className="border-b border-border bg-gradient-to-b from-muted/60 to-background">

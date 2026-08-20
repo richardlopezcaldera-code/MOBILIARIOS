@@ -7,26 +7,30 @@ import { WholesaleCta } from "@/components/site/wholesale-cta";
 import {
   discountedProducts,
   featuredProducts,
-  getCategory,
-  products,
+  findCategory,
+  getCatalog,
   productsInCategory,
   rootCategories,
-} from "@/lib/catalog";
+} from "@/lib/data";
 
 const SHOWCASE = ["escritorios", "sillas", "mesas", "lockers", "estantes-y-repisas"];
 
-export default function Home() {
-  const featured = featuredProducts(14);
-  const offers = discountedProducts(14);
+export default async function Home() {
+  const catalog = await getCatalog();
+  const roots = rootCategories(catalog.categories);
+
+  const offers = discountedProducts(catalog.products, 14);
+  const featured = featuredProducts(catalog.products, 14);
+
   const rows = SHOWCASE.map((slug) => {
-    const category = getCategory(slug);
+    const category = findCategory(catalog.categories, slug);
     if (!category) return null;
-    return { category, items: productsInCategory(category).slice(0, 14) };
+    return { category, items: productsInCategory(catalog, category).slice(0, 14) };
   }).filter((row) => row !== null);
 
   return (
     <>
-      <Hero total={products.length} />
+      <Hero total={catalog.products.length} categories={roots} />
 
       {offers.length > 0 && (
         <ProductRow
@@ -63,7 +67,7 @@ export default function Home() {
           Todas las categorías
         </h2>
         <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          {rootCategories().map((category) => (
+          {roots.map((category) => (
             <li key={category.id}>
               <Link
                 href={`/categoria/${category.slug}`}

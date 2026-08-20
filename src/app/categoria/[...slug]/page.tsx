@@ -5,10 +5,10 @@ import { notFound } from "next/navigation";
 import { ProductGrid } from "@/components/site/product-row";
 import {
   childrenOf,
-  getCategory,
-  getCategoryById,
+  findCategory,
+  getCatalog,
   productsInCategory,
-} from "@/lib/catalog";
+} from "@/lib/data";
 
 type Props = {
   params: Promise<{ slug: string[] }>;
@@ -19,7 +19,8 @@ const PER_PAGE = 48;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const category = getCategory(slug.join("/"));
+  const { categories } = await getCatalog();
+  const category = findCategory(categories, slug.join("/"));
   if (!category) return { title: "Categoría no encontrada" };
   return {
     title: category.name,
@@ -30,15 +31,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function CategoryPage({ params, searchParams }: Props) {
   const { slug } = await params;
   const { page } = await searchParams;
-  const category = getCategory(slug.join("/"));
+  const catalog = await getCatalog();
+  const category = findCategory(catalog.categories, slug.join("/"));
   if (!category) notFound();
 
-  const items = productsInCategory(category);
+  const items = productsInCategory(catalog, category);
   const totalPages = Math.max(1, Math.ceil(items.length / PER_PAGE));
   const current = Math.min(Math.max(1, Number(page) || 1), totalPages);
   const visible = items.slice((current - 1) * PER_PAGE, current * PER_PAGE);
-  const subs = childrenOf(category.id);
-  const parent = category.parentId ? getCategoryById(category.parentId) : null;
+  const subs = childrenOf(catalog.categories, category.id);
+  const parent = category.parentId
+    ? catalog.categories.find((item) => item.id === category.parentId)
+    : null;
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">

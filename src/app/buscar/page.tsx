@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Search } from "lucide-react";
 
 import { ProductGrid } from "@/components/site/product-row";
-import { products } from "@/lib/catalog";
+import { getCatalog } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Buscar",
@@ -19,6 +19,7 @@ function normalize(value: string): string {
 
 export default async function SearchPage({ searchParams }: Props) {
   const { q = "" } = await searchParams;
+  const { products } = await getCatalog();
   const query = q.trim();
 
   const terms = normalize(query).split(/\s+/).filter(Boolean);

@@ -2,7 +2,7 @@
 
 import { useCallback, useSyncExternalStore } from "react";
 
-import { products, type Product } from "@/lib/catalog";
+import type { Product } from "@/lib/catalog";
 
 export interface EditableFields {
   name: string;
@@ -157,7 +157,10 @@ function csvCell(value: string | number): string {
 }
 
 /** CSV con los cambios, listo para revisar o importar a mano en Jumpseller. */
-export function draftsToCsv(state: DraftState): string {
+export function draftsToCsv(
+  state: DraftState,
+  products: Product[],
+): string {
   const header = [
     "accion",
     "id",

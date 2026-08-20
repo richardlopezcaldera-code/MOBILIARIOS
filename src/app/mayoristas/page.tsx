@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Mail, MessageCircle } from "lucide-react";
 
 import { STORE, whatsappLink } from "@/lib/store";
-import { rootCategories } from "@/lib/catalog";
+import { getCatalog, rootCategories } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Cotización por volumen",
@@ -10,8 +10,9 @@ export const metadata: Metadata = {
     "Cotiza mobiliario por volumen para oficinas, colegios, restaurantes e industria.",
 };
 
-export default function WholesalePage() {
-  const categories = rootCategories().slice(0, 9);
+export default async function WholesalePage() {
+  const catalog = await getCatalog();
+  const categories = rootCategories(catalog.categories).slice(0, 9);
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">

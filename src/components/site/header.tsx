@@ -3,10 +3,11 @@ import { Menu, Search, Truck } from "lucide-react";
 
 import { CartBadge } from "@/components/site/cart-badge";
 import { STORE } from "@/lib/store";
-import { childrenOf, rootCategories } from "@/lib/catalog";
+import { childrenOf, getCatalog, rootCategories } from "@/lib/data";
 
-export function Header() {
-  const roots = rootCategories();
+export async function Header() {
+  const { categories } = await getCatalog();
+  const roots = rootCategories(categories);
   const primary = roots.slice(0, 8);
 
   return (
@@ -60,7 +61,7 @@ export function Header() {
       <nav aria-label="Categorías" className="border-t border-border">
         <div className="mx-auto hidden max-w-7xl items-center gap-1 px-4 lg:flex">
           {primary.map((category) => {
-            const subs = childrenOf(category.id);
+            const subs = childrenOf(categories, category.id);
             return (
               <div key={category.id} className="group relative">
                 <Link

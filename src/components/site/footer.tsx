@@ -2,10 +2,11 @@ import Link from "next/link";
 import { Mail, MapPin, MessageCircle } from "lucide-react";
 
 import { STORE, whatsappLink } from "@/lib/store";
-import { rootCategories } from "@/lib/catalog";
+import { getCatalog, rootCategories } from "@/lib/data";
 
-export function Footer() {
-  const roots = rootCategories().slice(0, 8);
+export async function Footer() {
+  const { categories } = await getCatalog();
+  const roots = rootCategories(categories).slice(0, 8);
 
   return (
     <footer className="mt-16 border-t border-border bg-muted/30">

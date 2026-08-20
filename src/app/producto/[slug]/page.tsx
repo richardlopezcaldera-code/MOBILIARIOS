@@ -7,19 +7,15 @@ import { Check, MessageCircle, X } from "lucide-react";
 import { AddToCart } from "@/components/site/add-to-cart";
 import { ProductGrid } from "@/components/site/product-row";
 import { STORE, formatCLP, whatsappLink } from "@/lib/store";
-import {
-  discountPercent,
-  getCategoryById,
-  getProduct,
-  inStock,
-  relatedProducts,
-} from "@/lib/catalog";
+import { discountPercent, inStock } from "@/lib/catalog";
+import { findProduct, getCatalog, relatedProducts } from "@/lib/data";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProduct(slug);
+  const { products } = await getCatalog();
+  const product = findProduct(products, slug);
   if (!product) return { title: "Producto no encontrado" };
   return {
     // Solo el nombre: el template del layout ya agrega "| MobiliarioTech".
@@ -31,15 +27,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
-  const product = getProduct(slug);
+  const catalog = await getCatalog();
+  const product = findProduct(catalog.products, slug);
   if (!product) notFound();
 
   const discount = discountPercent(product);
   const available = inStock(product);
-  const related = relatedProducts(product);
+  const related = relatedProducts(catalog.products, product);
   const categories = product.categories
-    .map((id) => getCategoryById(id))
-    .filter((c) => c !== undefined);
+    .map((id) => catalog.categories.find((item) => item.id === id))
+    .filter((item) => item !== undefined);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
