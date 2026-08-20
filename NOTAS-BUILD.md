@@ -74,7 +74,8 @@ nombre, precio neto y stock, y crear productos nuevos.
 
 1. **Colores de marca.** El azul es elección mía; no pude descargar tu logo
    desde el entorno de trabajo. Pásame el logo o los colores y los ajusto.
-2. **Despacho.** No hay ninguna promesa de cobertura en el sitio porque no la
-   tengo confirmada. Vi en tu tienda un envío gratis Starken sobre $300.000
-   — dime si va y lo agrego.
+2. **Despacho.** El sitio no hace ninguna promesa de cobertura, plazos ni
+   costos, porque no están confirmados. **Decidido: no incluir el envío gratis
+   por Starken** que aparece en la tienda actual. Si más adelante quieres
+   publicar condiciones de despacho, hay que definirlas explícitamente.
 3. **Publicar.** El proyecto no está subido a GitHub todavía.
