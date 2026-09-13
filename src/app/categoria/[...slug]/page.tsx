@@ -101,7 +101,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
 
       <div className="mt-8">
         {items.length > 0 ? (
-          <ProductGrid products={visible} />
+          <ProductGrid products={visible} categories={catalog.categories} />
         ) : (
           <p className="rounded-xl border border-border bg-muted/30 p-8 text-center text-sm text-muted-foreground">
             Esta categoría todavía no tiene productos publicados.

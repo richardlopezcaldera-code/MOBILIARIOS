@@ -106,6 +106,7 @@ export default async function Home() {
           title="Ofertas vigentes"
           subtitle="Productos con precio rebajado en el catálogo"
           products={offers}
+          categories={catalog.categories}
           href="/categoria/ofertas-del-dia"
         />
       )}
@@ -115,6 +116,7 @@ export default async function Home() {
           title="Destacados"
           subtitle="Seleccionados desde tu catálogo"
           products={featured}
+          categories={catalog.categories}
           href="/buscar"
         />
       )}
@@ -125,6 +127,7 @@ export default async function Home() {
           title={category.name}
           subtitle={`${category.count} productos disponibles`}
           products={items}
+          categories={catalog.categories}
           href={`/categoria/${category.slug}`}
         />
       ))}

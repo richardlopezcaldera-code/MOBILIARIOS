@@ -6,7 +6,7 @@ import { ArrowRight, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react
 
 import { ProductCard } from "@/components/site/product-card";
 import { usePrefersReducedMotion } from "@/lib/client-preferences";
-import type { Product } from "@/lib/catalog";
+import type { Category, Product } from "@/lib/catalog";
 
 const INTERVAL_MS = 15_000;
 /** Avanza de a 10: cada rotación muestra un grupo completamente nuevo. */
@@ -25,12 +25,14 @@ export function RotatingRow({
   title,
   subtitle,
   products,
+  categories,
   href,
   visible = 10,
 }: {
   title: string;
   subtitle?: string;
   products: Product[];
+  categories?: Category[];
   href?: string;
   visible?: number;
 }) {
@@ -145,7 +147,7 @@ export function RotatingRow({
             key={`${product.id}-${index}`}
             className="w-44 shrink-0 snap-start sm:w-52 lg:w-56"
           >
-            <ProductCard product={product} />
+            <ProductCard product={product} categories={categories} />
           </li>
         ))}
       </ul>

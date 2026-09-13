@@ -11,7 +11,7 @@ import {
   ProductSchema,
 } from "@/components/site/structured-data";
 import { STORE, formatCLP, whatsappLink } from "@/lib/store";
-import { discountPercent, inStock } from "@/lib/catalog";
+import { categoryTrail, discountPercent, inStock } from "@/lib/catalog";
 import { findProduct, getCatalog, relatedProducts } from "@/lib/data";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const product = findProduct(products, slug);
   if (!product) return { title: "Producto no encontrado" };
   return {
-    // Solo el nombre: el template del layout ya agrega "| MobiliarioTech".
+    // Solo el nombre: el template del layout ya agrega "| Mobiliarios Tech".
     title: product.name,
     description: product.excerpt || undefined,
     alternates: { canonical: `/producto/${product.slug}` },
@@ -47,6 +47,9 @@ export default async function ProductPage({ params }: Props) {
   const categories = product.categories
     .map((id) => catalog.categories.find((item) => item.id === id))
     .filter((item) => item !== undefined);
+  // Ruta completa (Sillas / Sillas Ejecutivas y Ergonómicas): el comprador
+  // necesita ver a qué familia pertenece lo que está mirando.
+  const trail = categoryTrail(catalog.categories, product);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
@@ -54,32 +57,31 @@ export default async function ProductPage({ params }: Props) {
       <BreadcrumbSchema
         trail={[
           { name: "Inicio", path: "/" },
-          ...(categories[0]
-            ? [
-                {
-                  name: categories[0].name,
-                  path: `/categoria/${categories[0].slug}`,
-                },
-              ]
-            : []),
+          ...trail.map((category) => ({
+            name: category.name,
+            path: `/categoria/${category.slug}`,
+          })),
           { name: product.name, path: `/producto/${product.slug}` },
         ]}
       />
-      <nav aria-label="Ruta" className="mb-6 text-sm text-muted-foreground">
+      <nav
+        aria-label="Ruta"
+        className="mb-6 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm text-muted-foreground"
+      >
         <Link href="/" className="hover:text-foreground">
           Inicio
         </Link>
-        {categories[0] && (
-          <>
-            {" / "}
+        {trail.map((category) => (
+          <span key={category.id} className="flex items-center gap-1.5">
+            <span aria-hidden>/</span>
             <Link
-              href={`/categoria/${categories[0].slug}`}
-              className="hover:text-foreground"
+              href={`/categoria/${category.slug}`}
+              className="font-medium text-primary hover:underline"
             >
-              {categories[0].name}
+              {category.name}
             </Link>
-          </>
-        )}
+          </span>
+        ))}
       </nav>
 
       <div className="grid gap-8 lg:grid-cols-2">
@@ -214,7 +216,7 @@ export default async function ProductPage({ params }: Props) {
           <h2 className="mb-5 text-xl font-semibold tracking-tight">
             Productos relacionados
           </h2>
-          <ProductGrid products={related} />
+          <ProductGrid products={related} categories={catalog.categories} />
         </section>
       )}
     </div>

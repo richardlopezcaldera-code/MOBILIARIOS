@@ -19,7 +19,7 @@ function normalize(value: string): string {
 
 export default async function SearchPage({ searchParams }: Props) {
   const { q = "" } = await searchParams;
-  const { products } = await getCatalog();
+  const { products, categories } = await getCatalog();
   const query = q.trim();
 
   const terms = normalize(query).split(/\s+/).filter(Boolean);
@@ -59,7 +59,7 @@ export default async function SearchPage({ searchParams }: Props) {
 
       <div className="mt-8">
         {results.length > 0 ? (
-          <ProductGrid products={results.slice(0, 60)} />
+          <ProductGrid products={results.slice(0, 60)} categories={categories} />
         ) : (
           query && (
             <p className="rounded-xl border border-border bg-muted/30 p-8 text-center text-sm text-muted-foreground">

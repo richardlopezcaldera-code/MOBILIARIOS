@@ -35,7 +35,7 @@ export async function Header() {
             className="size-9 shrink-0 sm:size-10"
           />
           <span className="text-lg leading-none font-bold tracking-tight">
-            Mobiliario<span className="text-primary">Tech</span>
+            Mobiliarios <span className="text-primary">Tech</span>
           </span>
         </Link>
 

@@ -2,17 +2,19 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { ProductCard } from "@/components/site/product-card";
-import type { Product } from "@/lib/catalog";
+import type { Category, Product } from "@/lib/catalog";
 
 export function ProductRow({
   title,
   subtitle,
   products,
+  categories,
   href,
 }: {
   title: string;
   subtitle?: string;
   products: Product[];
+  categories?: Category[];
   href?: string;
 }) {
   if (products.length === 0) return null;
@@ -45,7 +47,7 @@ export function ProductRow({
             key={product.id}
             className="w-44 shrink-0 snap-start sm:w-52 lg:w-56"
           >
-            <ProductCard product={product} />
+            <ProductCard product={product} categories={categories} />
           </li>
         ))}
       </ul>
@@ -53,12 +55,18 @@ export function ProductRow({
   );
 }
 
-export function ProductGrid({ products }: { products: Product[] }) {
+export function ProductGrid({
+  products,
+  categories,
+}: {
+  products: Product[];
+  categories?: Category[];
+}) {
   return (
     <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       {products.map((product) => (
         <li key={product.id}>
-          <ProductCard product={product} />
+          <ProductCard product={product} categories={categories} />
         </li>
       ))}
     </ul>

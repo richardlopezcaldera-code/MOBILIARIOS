@@ -2,7 +2,7 @@
  * Datos de la tienda. Origen: Jumpseller (tienda `mobiliariotech`), solo lectura.
  */
 export const STORE = {
-  name: "MobiliarioTech",
+  name: "Mobiliarios Tech",
   legalName: "Mobiliarios Tech Chile",
   url: "https://mobiliariostechchile.cl",
   email: "contacto@mobiliariostechchile.cl",

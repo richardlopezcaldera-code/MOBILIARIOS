@@ -126,7 +126,7 @@ export default async function ArticlePage({ params }: Props) {
           <h2 className="mb-5 text-lg font-semibold tracking-tight">
             Del catálogo
           </h2>
-          <ProductGrid products={picks} />
+          <ProductGrid products={picks} categories={catalog.categories} />
         </section>
       )}
 

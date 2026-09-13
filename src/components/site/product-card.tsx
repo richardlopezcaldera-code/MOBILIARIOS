@@ -4,18 +4,28 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { formatCLP } from "@/lib/store";
 import { AddToCartCompact } from "@/components/site/add-to-cart";
-import { discountPercent, inStock, type Product } from "@/lib/catalog";
+import {
+  categoryLabel,
+  discountPercent,
+  inStock,
+  type Category,
+  type Product,
+} from "@/lib/catalog";
 
 export function ProductCard({
   product,
+  categories,
   className,
 }: {
   product: Product;
+  /** Lista completa de categorías; sin ella la tarjeta no muestra la familia. */
+  categories?: Category[];
   className?: string;
 }) {
   const discount = discountPercent(product);
   const available = inStock(product);
   const [primary, secondary] = product.images;
+  const family = categories ? categoryLabel(categories, product) : null;
 
   return (
     <div
@@ -63,6 +73,11 @@ export function ProductCard({
         </div>
 
         <div className="flex flex-1 flex-col gap-1.5 p-3 pb-0">
+          {family && (
+            <p className="truncate text-[11px] leading-tight font-semibold tracking-wide text-primary uppercase">
+              {family}
+            </p>
+          )}
           <h3 className="line-clamp-2 text-sm font-medium text-foreground group-hover:underline">
             {product.name}
           </h3>
