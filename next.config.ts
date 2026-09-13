@@ -12,6 +12,13 @@ const nextConfig: NextConfig = {
     root: __dirname,
   },
   images: {
+    // El optimizador de imagenes de Vercel tiene cuota en el plan Hobby.
+    // Al agotarse devuelve 402 y TODAS las fotos que no estaban ya en cache
+    // salen rotas en la tienda (comprobado el 13-09-2026 en las banquetas ISO).
+    // Servimos directo desde el CDN de Jumpseller, que ya entrega las fotos
+    // en un tamano razonable. Si algun dia se contrata Vercel Pro, basta con
+    // quitar esta linea para volver a optimizar.
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
