@@ -23,7 +23,18 @@ export const isLive = Boolean(LOGIN && TOKEN);
 /** Etiqueta de caché: el webhook la invalida para refrescar al instante. */
 export const CATALOG_TAG = "catalog";
 
-const REVALIDATE_SECONDS = 600;
+/**
+ * Cada cuánto se vuelve a leer el catálogo.
+ *
+ * Estaba en 600 s (10 min) y era el motivo de que un precio o una foto
+ * cambiados desde la ficha del CRM tardaran en verse acá, aunque en
+ * mobiliariostechchile.cl ya estuvieran. Con 60 s los dos sitios muestran lo
+ * mismo dentro del minuto, sin depender de que el webhook esté configurado.
+ *
+ * Costo: un refresco son ~11 llamadas (10 páginas de productos + categorías),
+ * o sea ~11 por minuto contra un límite de 800. Queda holgado.
+ */
+const REVALIDATE_SECONDS = 60;
 
 function authHeader(): string {
   return `Basic ${Buffer.from(`${LOGIN}:${TOKEN}`).toString("base64")}`;
