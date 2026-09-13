@@ -23,6 +23,19 @@ export default async function Home() {
   const [catalog, weather] = await Promise.all([getCatalog(), getWeather()]);
   const roots = rootCategories(catalog.categories);
 
+  // Foto real de producto para cada tarjeta de categoria, en vez de un icono:
+  // la primera imagen alojada en la tienda, prefiriendo productos destacados.
+  const fotoPorCategoria: Record<string, string> = {};
+  for (const c of roots.slice(0, 6)) {
+    const propia = (u: string) => u.startsWith("https://images.jumpseller.com/");
+    const conFoto = productsInCategory(catalog, c).filter((p) =>
+      (p.images || []).some(propia),
+    );
+    const elegido = conFoto.find((p) => p.featured) ?? conFoto[0];
+    const foto = elegido?.images.find(propia);
+    if (foto) fotoPorCategoria[c.slug] = foto;
+  }
+
   const offers = discountedProducts(catalog.products, 40);
   const featured = featuredProducts(catalog.products, 40);
 
@@ -38,7 +51,11 @@ export default async function Home() {
 
       <TrustBar />
 
-      <CategoryGrid categories={roots} total={roots.length} />
+      <CategoryGrid
+        categories={roots}
+        total={roots.length}
+        fotos={fotoPorCategoria}
+      />
 
       <HowToBuy />
 

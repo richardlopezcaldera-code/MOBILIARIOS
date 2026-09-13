@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   Armchair,
@@ -24,9 +25,12 @@ const META: Record<string, { icon: LucideIcon; detail: string }> = {
 export function CategoryGrid({
   categories,
   total,
+  fotos = {},
 }: {
   categories: Category[];
   total: number;
+  /** Foto real de un producto de la categoria, por slug. */
+  fotos?: Record<string, string>;
 }) {
   const destacadas = categories.slice(0, 6);
 
@@ -55,18 +59,29 @@ export function CategoryGrid({
         {destacadas.map((category) => {
           const meta = META[category.slug];
           const Icon = meta?.icon ?? LayoutPanelTop;
+          const foto = fotos[category.slug];
           return (
             <li key={category.id}>
               <Link
                 href={`/categoria/${category.slug}`}
                 className="group block overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-primary"
               >
-                <div className="flex h-24 items-center justify-center bg-muted/60 sm:h-32 lg:h-36">
-                  <Icon
-                    className="size-10 text-primary/45 transition-colors group-hover:text-primary/70 sm:size-12 lg:size-14"
-                    strokeWidth={1.1}
-                    aria-hidden
-                  />
+                <div className="flex h-28 items-center justify-center overflow-hidden bg-white sm:h-36 lg:h-44">
+                  {foto ? (
+                    <Image
+                      src={foto}
+                      alt=""
+                      width={600}
+                      height={600}
+                      className="size-full object-contain p-2 transition-transform duration-300 group-hover:scale-105 sm:p-3"
+                    />
+                  ) : (
+                    <Icon
+                      className="size-10 text-primary/45 transition-colors group-hover:text-primary/70 sm:size-12 lg:size-14"
+                      strokeWidth={1.1}
+                      aria-hidden
+                    />
+                  )}
                 </div>
                 <div className="px-3 py-3 sm:px-5 sm:py-4">
                   <div className="flex items-start justify-between gap-2">

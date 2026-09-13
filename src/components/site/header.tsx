@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Menu, Search, Truck } from "lucide-react";
 
@@ -24,8 +25,18 @@ export async function Header() {
       </div>
 
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3">
-        <Link href="/" className="shrink-0 text-lg font-bold tracking-tight">
-          Mobiliario<span className="text-primary">Tech</span>
+        <Link href="/" className="flex shrink-0 items-center gap-2.5">
+          <Image
+            src="/images/emblema-mtc.png"
+            alt="Mobiliarios Tech Chile"
+            width={480}
+            height={480}
+            priority
+            className="size-9 shrink-0 sm:size-10"
+          />
+          <span className="text-lg leading-none font-bold tracking-tight">
+            Mobiliario<span className="text-primary">Tech</span>
+          </span>
         </Link>
 
         <form
