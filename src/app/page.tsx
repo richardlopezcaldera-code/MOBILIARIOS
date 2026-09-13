@@ -41,6 +41,18 @@ export default async function Home() {
     u.startsWith("https://images.jumpseller.com/") &&
     !/captura|screenshot|whatsapp/i.test(u);
 
+  // Entre los que calzan, preferir el que represente la venta corporativa:
+  // esta es una tienda de oficina, no de mobiliario escolar.
+  const PREFIERE: Record<string, RegExp> = {
+    sillas: /ejecutiv|ergonom|gerencial|malla|oficina/,
+    mesas: /reunion|conferenc|directorio|oficina/,
+    escritorios: /recto|estacion|gerencia|oficina/,
+    "estantes-y-repisas": /biblioteca|archivo|oficina/,
+    lockers: /locker/,
+    "pizarras-y-murales": /pizarra|mural/,
+  };
+  const EVITA = /escolar|universitari|jardin|infantil/;
+
   const fotoPorCategoria: Record<string, string> = {};
   for (const c of roots.slice(0, 6)) {
     const claves = CLAVE[c.slug] ?? [sinAcentos(c.name).split(" ")[0]];
@@ -50,7 +62,13 @@ export default async function Home() {
     const calza = items.filter((p) =>
       claves.some((k) => sinAcentos(p.name).startsWith(k)),
     );
-    const pool = calza.length > 0 ? calza : items;
+    const base = calza.length > 0 ? calza : items;
+    const corporativo = base.filter(
+      (p) =>
+        !EVITA.test(sinAcentos(p.name)) &&
+        (PREFIERE[c.slug]?.test(sinAcentos(p.name)) ?? true),
+    );
+    const pool = corporativo.length > 0 ? corporativo : base;
     const elegido = pool.find((p) => p.featured) ?? pool[0];
     const foto = elegido?.images.find(fotoUtil);
     if (foto) fotoPorCategoria[c.slug] = foto;
