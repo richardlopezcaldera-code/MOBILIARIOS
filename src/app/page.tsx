@@ -1,6 +1,8 @@
 import Link from "next/link";
 
+import { CategoryGrid } from "@/components/site/category-grid";
 import { Hero } from "@/components/site/hero";
+import { HowToBuy } from "@/components/site/how-to-buy";
 import { RotatingRow } from "@/components/site/rotating-row";
 import { TrustBar } from "@/components/site/trust-bar";
 import { WeatherBanner } from "@/components/site/weather-banner";
@@ -34,6 +36,12 @@ export default async function Home() {
     <>
       <Hero total={catalog.products.length} categories={roots} />
 
+      <TrustBar />
+
+      <CategoryGrid categories={roots} total={roots.length} />
+
+      <HowToBuy />
+
       {weather && (
         <WeatherBanner weather={weather} categories={catalog.categories} />
       )}
@@ -46,8 +54,6 @@ export default async function Home() {
           href="/categoria/ofertas-del-dia"
         />
       )}
-
-      <TrustBar />
 
       {featured.length > 0 && (
         <RotatingRow
