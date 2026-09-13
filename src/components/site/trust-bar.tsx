@@ -1,31 +1,30 @@
-import { Building2, MapPin, MessageCircle, PackageSearch } from "lucide-react";
-
-import { STORE } from "@/lib/store";
+import { FileText, ShieldCheck, Truck, Wallet } from "lucide-react";
 
 /**
  * Cada afirmación aquí es verificable con los datos de la tienda.
  * No agregar promesas (envío gratis, plazos, garantías) sin confirmarlas.
+ * Plazos, garantía y política de precio confirmados por Richard el 13-09-2026.
  */
 const ITEMS = [
   {
-    icon: MapPin,
-    title: "Retiro en tienda",
-    detail: `${STORE.address.street}, ${STORE.address.city}`,
+    icon: FileText,
+    title: "Factura y orden de compra",
+    detail: "Documentación tributaria para el área de finanzas.",
   },
   {
-    icon: MessageCircle,
-    title: "Atención por WhatsApp",
-    detail: STORE.whatsappDisplay,
+    icon: Truck,
+    title: "Importación 2 días · fabricación 5 días",
+    detail: "Días hábiles. Despacho a todo Chile o retiro en tienda.",
   },
   {
-    icon: Building2,
-    title: "Venta a empresas",
-    detail: "Cotización por volumen",
+    icon: Wallet,
+    title: "Precio de catálogo",
+    detail: "Los mismos precios publicados, en cotización formal.",
   },
   {
-    icon: PackageSearch,
-    title: "Catálogo amplio",
-    detail: "Oficina, hogar, gastronomía e industria",
+    icon: ShieldCheck,
+    title: "Garantía 6 meses",
+    detail: "En todo el catálogo, con respaldo de repuestos.",
   },
 ];
 
