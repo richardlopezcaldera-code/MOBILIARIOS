@@ -23,16 +23,36 @@ export default async function Home() {
   const [catalog, weather] = await Promise.all([getCatalog(), getWeather()]);
   const roots = rootCategories(catalog.categories);
 
-  // Foto real de producto para cada tarjeta de categoria, en vez de un icono:
-  // la primera imagen alojada en la tienda, prefiriendo productos destacados.
+  // Foto real de producto para cada tarjeta de categoria, en vez de un icono.
+  // No sirve tomar el primero: hay productos mal categorizados (un escritorio
+  // dentro de Estantes) y fotos que son capturas de pantalla. Se exige que el
+  // NOMBRE del producto empiece por la palabra de la linea.
+  const CLAVE: Record<string, string[]> = {
+    sillas: ["silla"],
+    mesas: ["mesa"],
+    escritorios: ["escritorio"],
+    "estantes-y-repisas": ["estante", "repisa", "biblioteca"],
+    lockers: ["locker", "casillero"],
+    "pizarras-y-murales": ["pizarra", "mural", "diario mural"],
+  };
+  const sinAcentos = (s: string) =>
+    s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const fotoUtil = (u: string) =>
+    u.startsWith("https://images.jumpseller.com/") &&
+    !/captura|screenshot|whatsapp/i.test(u);
+
   const fotoPorCategoria: Record<string, string> = {};
   for (const c of roots.slice(0, 6)) {
-    const propia = (u: string) => u.startsWith("https://images.jumpseller.com/");
-    const conFoto = productsInCategory(catalog, c).filter((p) =>
-      (p.images || []).some(propia),
+    const claves = CLAVE[c.slug] ?? [sinAcentos(c.name).split(" ")[0]];
+    const items = productsInCategory(catalog, c).filter((p) =>
+      (p.images || []).some(fotoUtil),
     );
-    const elegido = conFoto.find((p) => p.featured) ?? conFoto[0];
-    const foto = elegido?.images.find(propia);
+    const calza = items.filter((p) =>
+      claves.some((k) => sinAcentos(p.name).startsWith(k)),
+    );
+    const pool = calza.length > 0 ? calza : items;
+    const elegido = pool.find((p) => p.featured) ?? pool[0];
+    const foto = elegido?.images.find(fotoUtil);
     if (foto) fotoPorCategoria[c.slug] = foto;
   }
 
