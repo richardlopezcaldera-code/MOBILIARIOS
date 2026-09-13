@@ -27,7 +27,7 @@ export function Hero({ total }: { total: number; categories: Category[] }) {
           alt=""
           width={480}
           height={480}
-          className="w-[320px] max-w-[85%] opacity-[0.06] sm:w-[460px] lg:w-[620px]"
+          className="w-[340px] max-w-[85%] opacity-[0.11] sm:w-[500px] lg:w-[680px]"
         />
       </div>
 
