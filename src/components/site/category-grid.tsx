@@ -49,7 +49,9 @@ export function CategoryGrid({
         </Link>
       </div>
 
-      <ul className="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Dos por fila desde el telefono: a una sola columna las tarjetas
+          quedan enormes y casi vacias, y obligan a scrollear el catalogo. */}
+      <ul className="mt-7 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
         {destacadas.map((category) => {
           const meta = META[category.slug];
           const Icon = meta?.icon ?? LayoutPanelTop;
@@ -59,25 +61,27 @@ export function CategoryGrid({
                 href={`/categoria/${category.slug}`}
                 className="group block overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-primary"
               >
-                <div className="flex h-36 items-center justify-center bg-muted/60">
+                <div className="flex h-24 items-center justify-center bg-muted/60 sm:h-32 lg:h-36">
                   <Icon
-                    className="size-14 text-primary/45 transition-colors group-hover:text-primary/70"
+                    className="size-10 text-primary/45 transition-colors group-hover:text-primary/70 sm:size-12 lg:size-14"
                     strokeWidth={1.1}
                     aria-hidden
                   />
                 </div>
-                <div className="flex items-center justify-between gap-4 px-5 py-4">
-                  <div>
-                    <p className="font-semibold">{category.name}</p>
-                    {meta && (
-                      <p className="mt-0.5 text-xs text-muted-foreground">
-                        {meta.detail}
-                      </p>
-                    )}
+                <div className="px-3 py-3 sm:px-5 sm:py-4">
+                  <div className="flex items-start justify-between gap-2">
+                    <p className="text-sm leading-tight font-semibold sm:text-base">
+                      {category.name}
+                    </p>
+                    <span className="shrink-0 rounded-md bg-muted px-2 py-0.5 text-xs font-bold sm:text-sm">
+                      {category.count}
+                    </span>
                   </div>
-                  <span className="shrink-0 rounded-lg bg-muted px-2.5 py-1 text-sm font-bold">
-                    {category.count}
-                  </span>
+                  {meta && (
+                    <p className="mt-1 text-[11px] text-muted-foreground sm:text-xs">
+                      {meta.detail}
+                    </p>
+                  )}
                 </div>
               </Link>
             </li>
