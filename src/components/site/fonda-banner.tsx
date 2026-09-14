@@ -146,24 +146,39 @@ export function FondaBanner() {
           viewBox="0 0 186 56"
           aria-hidden
         >
+          {/* OJO: la clase de animación y el atributo transform NO pueden ir
+              en el mismo <g>. El `transform` que aplica la animación CSS pisa
+              al atributo del SVG, y todas las figuras se amontonaban encima
+              del guitarrero. Por eso cada una lleva un <g> exterior que la
+              posiciona y uno interior que la anima. */}
+
           {/* la pareja del fondo: más chica y suave, para dar profundidad.
               A este tamaño, por debajo de .45 desaparece. */}
-          <g opacity=".45" transform="translate(96 2) scale(.72)">
-            <g className="mt-bailarin mt-lento">
-              <El />
+          <g opacity=".45" transform="translate(92 2) scale(.72)">
+            <g>
+              <g className="mt-bailarin mt-lento">
+                <El />
+              </g>
             </g>
-            <g className="mt-bailarina mt-lento" transform="translate(27)">
-              <Ella />
+            <g transform="translate(27)">
+              <g className="mt-bailarina mt-lento">
+                <Ella />
+              </g>
             </g>
           </g>
+
           <g transform="translate(0 12) scale(.9)" opacity=".78">
             <Guitarrero />
           </g>
-          <g className="mt-bailarin" transform="translate(32 12)">
-            <El />
+          <g transform="translate(28 12)">
+            <g className="mt-bailarin">
+              <El />
+            </g>
           </g>
-          <g className="mt-bailarina" transform="translate(60 12)">
-            <Ella />
+          <g transform="translate(56 12)">
+            <g className="mt-bailarina">
+              <Ella />
+            </g>
           </g>
           <rect x="2" y="51" width="182" height="2" rx="1" fill="currentColor" opacity=".2" />
         </svg>
