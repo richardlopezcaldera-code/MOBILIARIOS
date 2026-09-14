@@ -12,7 +12,11 @@ import Link from "next/link";
  * Las siluetas son dibujo propio, no fotos ni imágenes de terceros.
  */
 
-/** Chile está en UTC-3 en septiembre (horario de verano ya comenzó). */
+/**
+ * Chile está en UTC-3 (horario de verano, comprobado contra el reloj real el
+ * 13-09-2026). La ventana va desde el 13 a las 00:00 hasta el 26 a las 00:00,
+ * o sea el 25 completo incluido.
+ */
 const DESDE = Date.parse("2026-09-13T00:00:00-03:00");
 const HASTA = Date.parse("2026-09-26T00:00:00-03:00");
 
