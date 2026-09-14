@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 /**
@@ -129,16 +128,13 @@ export function FondaBanner() {
         ))}
       </div>
 
-      <div className="relative z-30 mx-auto flex max-w-7xl flex-wrap items-center gap-x-3 gap-y-2 px-4 pt-3 pb-2">
-        <Image
-          src="/images/emblema-mtc.png"
-          alt=""
-          width={480}
-          height={480}
-          className="size-[22px] shrink-0"
-        />
-        <p className="text-[13.5px] leading-tight font-bold tracking-tight">
-          Septiembre en MobiliarioTech
+      <div className="relative z-30 mx-auto flex max-w-7xl flex-wrap items-center gap-x-3 gap-y-1 px-4 pt-3 pb-2">
+        {/* Sin logo en la cinta: el emblema ya está en la barra de abajo, a
+            tres centímetros. Repetirlo acá lo abarata. */}
+        {/* min-w-0 y flex-1: el texto cede espacio en vez de empujar la fonda
+            fuera del borde, que es lo que pasaba en pantallas angostas. */}
+        <p className="min-w-0 flex-1 text-[13.5px] leading-tight font-bold tracking-tight">
+          Septiembre en Mobiliarios Tech
           <span className="block text-[11.5px] font-normal tracking-normal text-[#5A6B80]">
             Precio por volumen desde $1.000.000 · respuesta en 24 horas
           </span>
@@ -146,12 +142,13 @@ export function FondaBanner() {
 
         {/* la fonda */}
         <svg
-          className="h-14 w-[150px] shrink-0 text-[#D52B1E] sm:w-[186px]"
+          className="h-12 w-[124px] shrink-0 text-[#D52B1E] sm:h-14 sm:w-[186px]"
           viewBox="0 0 186 56"
           aria-hidden
         >
-          {/* la pareja del fondo: más chica y desvaída, para dar profundidad */}
-          <g opacity=".34" transform="translate(96 2) scale(.72)">
+          {/* la pareja del fondo: más chica y suave, para dar profundidad.
+              A este tamaño, por debajo de .45 desaparece. */}
+          <g opacity=".45" transform="translate(96 2) scale(.72)">
             <g className="mt-bailarin mt-lento">
               <El />
             </g>
@@ -159,7 +156,7 @@ export function FondaBanner() {
               <Ella />
             </g>
           </g>
-          <g transform="translate(0 12) scale(.9)" opacity=".6">
+          <g transform="translate(0 12) scale(.9)" opacity=".78">
             <Guitarrero />
           </g>
           <g className="mt-bailarin" transform="translate(32 12)">
