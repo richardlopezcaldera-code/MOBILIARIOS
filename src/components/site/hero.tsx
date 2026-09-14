@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check, MessageCircle } from "lucide-react";
 
@@ -17,19 +16,9 @@ const NECESIDADES = [
 export function Hero({ total }: { total: number; categories: Category[] }) {
   return (
     <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-muted/60 to-background">
-      {/* Marca de agua: emblema MTC centrado, decorativo. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 flex items-center justify-center"
-      >
-        <Image
-          src="/images/emblema-mtc.png"
-          alt=""
-          width={480}
-          height={480}
-          className="w-[340px] max-w-[85%] opacity-[0.11] sm:w-[500px] lg:w-[680px]"
-        />
-      </div>
+      {/* Sin marca de agua. El emblema gigante detrás del titular competía con
+          el texto y con las fotos de producto; el logo ya está en el header,
+          justo arriba. (Richard, 13-09-2026.) */}
 
       <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:py-16 lg:grid-cols-[1.15fr_minmax(0,1fr)] lg:items-center lg:gap-16">
         <div>
