@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 /**
  * Los tres pasos son la operación real de venta corporativa:
  * se cotiza, se aprueba y se factura. Sin carro ni registro previo.
@@ -26,18 +24,8 @@ export function HowToBuy() {
   return (
     <section className="mx-auto max-w-7xl px-4 pb-4">
       <div className="relative overflow-hidden rounded-3xl bg-primary px-6 py-12 text-primary-foreground sm:px-12 sm:py-14">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -top-16 -right-20 hidden sm:block"
-        >
-          <Image
-            src="/images/emblema-mtc.png"
-            alt=""
-            width={480}
-            height={480}
-            className="w-[420px] opacity-[0.09]"
-          />
-        </div>
+        {/* Sin marca de agua: el logo no va de fondo en ninguna sección.
+            (Richard, 13-09-2026.) */}
 
         <div className="relative">
           <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
