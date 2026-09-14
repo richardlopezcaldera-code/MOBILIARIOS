@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Mail, MessageCircle } from "lucide-react";
 
+import { WholesaleForm } from "@/components/site/wholesale-form";
 import { STORE, whatsappLink } from "@/lib/store";
 import { getCatalog, rootCategories } from "@/lib/data";
 
@@ -24,12 +25,19 @@ export default async function WholesalePage() {
         industriales. Cuéntanos qué necesitas y te preparamos una propuesta.
       </p>
 
+      {/* El formulario va primero: es lo único que deja registro de quien
+          entra. El WhatsApp y el correo quedan abajo como atajo para quien
+          prefiere hablar, pero por ahí el interesado no queda guardado. */}
+      <div className="mt-8">
+        <WholesaleForm />
+      </div>
+
       <div className="mt-8 flex flex-wrap gap-3">
         <a
           href={whatsappLink(
             "Hola, necesito una cotización por volumen. Les cuento qué necesito:",
           )}
-          className="inline-flex h-11 items-center gap-2 rounded-lg bg-primary px-6 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+          className="inline-flex h-11 items-center gap-2 rounded-lg border border-border bg-background px-6 text-sm font-medium hover:bg-muted"
         >
           <MessageCircle className="size-4" aria-hidden />
           Escribir por WhatsApp
@@ -43,13 +51,22 @@ export default async function WholesalePage() {
         </a>
       </div>
 
+      {/* Umbral y política de precio confirmados por Richard el 13-09-2026:
+          desde $1.000.000 se trabaja como mayorista y el precio se cotiza caso
+          a caso, sin porcentaje fijo publicado. */}
       <section className="mt-12">
-        <h2 className="text-sm font-semibold">Qué incluir en tu consulta</h2>
+        <h2 className="text-sm font-semibold">Cómo trabajamos el volumen</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-          <li>Tipo de mobiliario y cantidad estimada</li>
-          <li>Ciudad o comuna de entrega</li>
-          <li>Plazo en que lo necesitas</li>
-          <li>Si requieres factura</li>
+          <li>
+            Desde <b className="text-foreground">$1.000.000</b> preparamos un
+            precio por volumen para su proyecto.
+          </li>
+          <li>Cada propuesta se cotiza a medida, según cantidad y plazo.</li>
+          <li>
+            Importación 2 días hábiles · fabricación 5 días hábiles · garantía 6
+            meses.
+          </li>
+          <li>Factura y orden de compra a nombre de su empresa.</li>
         </ul>
       </section>
 
