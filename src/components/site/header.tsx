@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Menu, Search, Truck } from "lucide-react";
 
 import { CartBadge } from "@/components/site/cart-badge";
+import { FondaBanner } from "@/components/site/fonda-banner";
 import { STORE } from "@/lib/store";
 import { childrenOf, getCatalog, rootCategories } from "@/lib/data";
 
@@ -13,6 +14,9 @@ export async function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background">
+      {/* Campaña de Fiestas Patrias. Se retira sola el 25 de septiembre. */}
+      <FondaBanner />
+
       <div className="bg-primary text-primary-foreground">
         <div className="mx-auto flex max-w-7xl items-center justify-center gap-2 px-4 py-2 text-center text-xs sm:text-sm">
           <Truck className="size-4 shrink-0" aria-hidden />
